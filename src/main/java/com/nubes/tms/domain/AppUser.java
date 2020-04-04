@@ -31,6 +31,7 @@ public class AppUser implements AuditorAware<String> {
 
 	@CreatedBy
 	private String user;
+	
 	@CreatedDate
 	private Instant createdDate;
 
