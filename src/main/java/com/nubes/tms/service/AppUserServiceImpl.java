@@ -1,5 +1,4 @@
 package com.nubes.tms.service;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +43,7 @@ public class AppUserServiceImpl implements AppUserService {
 			log.info("User is found for the given email:{} and id:{}", email, appUser.getId());
 		}
 		return appUser;
+
 	}
 
 }

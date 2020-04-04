@@ -12,6 +12,10 @@ public interface IssueTicketService {
 
 	List<Issue> getTicketsByModule(String moduleName);
 	
+	Issue updateIssue(Issue issue);
+	
+	
+	
 	
 
 }
