@@ -46,4 +46,22 @@ public class AppUserServiceImpl implements AppUserService {
 
 	}
 
+	@Override
+	public AppUser checkUserExists(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AppUser updateUser(AppUser appUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deleteUser(String email) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
