@@ -30,7 +30,7 @@ public class AppUser implements AuditorAware<String> {
 	private String password;
 
 	@CreatedBy
-	private String user;
+	private String createdBy;
 	
 	@CreatedDate
 	private Instant createdDate;
@@ -43,7 +43,7 @@ public class AppUser implements AuditorAware<String> {
 
 	@Override
 	public Optional<String> getCurrentAuditor() {
-		return Optional.of("");
+		return Optional.of("Lakshman");
 	}
 
 }
