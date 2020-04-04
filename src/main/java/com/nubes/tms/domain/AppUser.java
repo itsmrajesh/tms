@@ -12,11 +12,19 @@ import org.springframework.data.domain.AuditorAware;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class AppUser implements AuditorAware<String> {
 
 	@Id
@@ -31,7 +39,7 @@ public class AppUser implements AuditorAware<String> {
 
 	@CreatedBy
 	private String user;
-	
+
 	@CreatedDate
 	private Instant createdDate;
 
