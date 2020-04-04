@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.AuditorAware;
 
 import lombok.AllArgsConstructor;
@@ -29,21 +30,22 @@ public class Issue implements AuditorAware<String> {
 	private Status status; // Enum
 	private String description;
 	private List<Comments> comments;
-	
+
 	@CreatedBy
 	private String createdBy;
-	
+
 	@CreatedDate
 	private Instant createdDate;
-	
-	
+
+	@CreatedDate
 	private LocalDateTime createAt;
-	
+
+	@LastModifiedDate
 	private LocalDateTime updateAt;
 
 	@Override
 	public Optional<String> getCurrentAuditor() {
-		return null;
+		return Optional.of("User Who raised issue/ticket");
 	}
 
 }
