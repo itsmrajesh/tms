@@ -34,6 +34,7 @@ public class AppUser implements AuditorAware<String> {
 	private String username;
 	private String email;
 	private String orgName;
+	@Builder.Default
 	private boolean status = true;
 	@JsonIgnore
 	private String password;
