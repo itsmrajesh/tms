@@ -6,7 +6,6 @@ import com.nubes.tms.exceptions.UserExistsException;
 public interface AppUserService {
 
 	public AppUser registerUser(AppUser appUser) throws UserExistsException;
-
 	public AppUser userProfile(String email);
 
 }

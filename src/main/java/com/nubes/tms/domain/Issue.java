@@ -1,49 +1,49 @@
 package com.nubes.tms.domain;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.AuditorAware;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AppUser implements AuditorAware<String> {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Issue implements AuditorAware<String> {
 
 	@Id
 	private String id;
-	private String firstName;
-	private String lastName;
-	private String username;
-	private String email;
-	private String orgName;
-	@JsonIgnore
-	private String password;
-
+	private String problemStatement;
+	private String module;
+	private Priority priority; // Enum
+	private Status status; // Enum
+	private String description;
+	private List<Comments> comments;
+	
 	@CreatedBy
 	private String createdBy;
 	
 	@CreatedDate
 	private Instant createdDate;
-
-	@LastModifiedBy
-	private String lastModifiedUser;
-
-	@LastModifiedDate
-	private Instant lastModifiedDate;
+	
+	
+	private LocalDateTime createAt;
+	
+	private LocalDateTime updateAt;
 
 	@Override
 	public Optional<String> getCurrentAuditor() {
-		return Optional.of("Lakshman");
+		return null;
 	}
 
 }
