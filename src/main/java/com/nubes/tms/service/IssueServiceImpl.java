@@ -13,35 +13,47 @@ import com.nubes.tms.domain.Issue;
 import com.nubes.tms.repo.IssueRepo;
 
 @Service
-public class IssueTicketServiceImpl implements IssueTicketService {
+public class IssueServiceImpl implements IssueService {
 
-	private static final Logger log = LoggerFactory.getLogger(IssueTicketServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(IssueServiceImpl.class);
 
 	@Autowired
 	private IssueRepo issueRepo;
 
 	@Override
-	public Issue issueNewTicket(Issue issue) {
+	public Issue createNewIssue(Issue issue) {
 		Assert.notNull(issue, "Issue object can't null");
 		Assert.notNull(issue.getProblemStatement(), "Problem Statement can't be null");
 		Assert.notNull(issue.getModule(), "Module Can't be null");
-		log.info("new issue added for module {} ", issue.getModule());
-		return issueRepo.save(issue);
+		Issue saveIssue = issueRepo.save(issue);
+		if (saveIssue != null) {
+			log.info("new issue added with id {} for module {} ", saveIssue.getId(), saveIssue.getModule());
+		} else {
+			log.error("Issue was unable add");
+		}
+		return saveIssue;
 	}
 
 	@Override
-	public Issue getTicketById(String id) {
+	public Issue getIssueById(String id) {
+
 		Assert.notNull(id, "ID Can't be null");
 		Optional<Issue> issue = issueRepo.findById(id);
-		log.info("Finding issue by ID {} ", id);
+		if (issue.isPresent()) {
+			log.info("Finding issue by ID {} ", id);
+		} else {
+			log.info("Issue with id {} is not found ", id);
+		}
 		return issue.get();
 	}
 
 	@Override
-	public List<Issue> getAllIssuesByModule(String moduleName) {
+	public List<Issue> getIssuesByModule(String moduleName) {
 		Assert.notNull(moduleName, "Module Name can't be null");
 		log.info("Searching issues by module name {} ", moduleName);
-		return issueRepo.findAllByModule(moduleName);
+		List<Issue> list = issueRepo.findAllByModule(moduleName);
+		log.info("Total issues found for the module {} is {}", moduleName, list.size());
+		return list;
 	}
 
 	@Override
@@ -50,7 +62,7 @@ public class IssueTicketServiceImpl implements IssueTicketService {
 		Assert.notNull(issue.getProblemStatement(), "Problem Statement can't be null");
 		Assert.notNull(issue.getModule(), "Module Can't be null");
 		Assert.notNull(issue.getId(), "ID can't be null for updating");
-		Assert.notNull(getTicketById(issue.getId()), "No Issue found with given Ticket ID");
+		Assert.notNull(getIssueById(issue.getId()), "No Issue found with given Ticket ID");
 		log.info("updating issue with problem statement {} and status {} ", issue.getProblemStatement(),
 				issue.getStatus());
 		return issueRepo.save(issue);
@@ -58,22 +70,27 @@ public class IssueTicketServiceImpl implements IssueTicketService {
 
 	@Override
 	public List<Issue> getAllIssues() {
-		log.info("getting all issues");
-		return issueRepo.findAll();
+		List<Issue> list = issueRepo.findAll();
+		log.info("Total issues is {}", list.size());
+		return list;
 	}
 
 	@Override
-	public List<Issue> getAllIssuesByStatus(String status) {
+	public List<Issue> getIssuesByStatus(String status) {
 		Assert.notNull(status, "status can't be null");
 		log.info("Searching all issues with status {} ", status);
-		return issueRepo.findAllByStatus(status);
+		List<Issue> list = issueRepo.findAllByStatus(status);
+		log.info("Total issues found for the status {} is {}", status, list.size());
+		return list;
 	}
 
 	@Override
-	public List<Issue> getAllIssuesByPriority(String priority) {
+	public List<Issue> getIssuesByPriority(String priority) {
 		Assert.notNull(priority, "priority can't be null");
 		log.info("Searching all issues with priority {} ", priority);
-		return issueRepo.findAllByPriority(priority);
+		List<Issue> list = issueRepo.findAllByPriority(priority);
+		log.info("Total issues found for the priority {} is {}", priority, list.size());
+		return list;
 	}
 
 }
