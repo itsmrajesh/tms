@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 import com.nubes.tms.domain.Issue;
 import com.nubes.tms.repo.IssueRepo;
 
-
 @Service
 public class IssueTicketServiceImpl implements IssueTicketService {
 
@@ -39,7 +38,7 @@ public class IssueTicketServiceImpl implements IssueTicketService {
 	}
 
 	@Override
-	public List<Issue> getTicketsByModule(String moduleName) {
+	public List<Issue> getAllIssuesByModule(String moduleName) {
 		Assert.notNull(moduleName, "Module Name can't be null");
 		log.info("Searching issues by module name {} ", moduleName);
 		return issueRepo.findAllByModule(moduleName);
@@ -59,20 +58,22 @@ public class IssueTicketServiceImpl implements IssueTicketService {
 
 	@Override
 	public List<Issue> getAllIssues() {
-		log.info("geting all issues");
+		log.info("getting all issues");
 		return issueRepo.findAll();
 	}
 
 	@Override
 	public List<Issue> getAllIssuesByStatus(String status) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(status, "status can't be null");
+		log.info("Searching all issues with status {} ", status);
+		return issueRepo.findAllByStatus(status);
 	}
 
 	@Override
 	public List<Issue> getAllIssuesByPriority(String priority) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(priority, "priority can't be null");
+		log.info("Searching all issues with priority {} ", priority);
+		return issueRepo.findAllByPriority(priority);
 	}
 
 }

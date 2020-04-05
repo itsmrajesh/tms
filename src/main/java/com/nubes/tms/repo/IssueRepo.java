@@ -8,4 +8,8 @@ import com.nubes.tms.domain.Issue;
 
 public interface IssueRepo extends MongoRepository<Issue, String> {
 	List<Issue> findAllByModule(String moduleName);
+
+	List<Issue> findAllByStatus(String status);
+
+	List<Issue> findAllByPriority(String priority);
 }

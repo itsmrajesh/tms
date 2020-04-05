@@ -10,7 +10,7 @@ public interface IssueTicketService {
 
 	Issue getTicketById(String id);
 
-	List<Issue> getTicketsByModule(String moduleName);
+	List<Issue> getAllIssuesByModule(String moduleName);
 
 	Issue updateIssue(Issue issue);
 

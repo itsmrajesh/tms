@@ -31,10 +31,34 @@ public class IssueController {
 		return issueTicketService.issueNewTicket(issue);
 	}
 
+	@GetMapping("/get")
+	public List<Issue> getAllIssues() {
+		Log.info("get all issues");
+		return issueTicketService.getAllIssues();
+	}
+
 	@GetMapping("/get/{id}")
 	public Issue getIssue(@PathVariable String id) {
 		Log.info("Searching for issue with id {} ", id);
 		return issueTicketService.getTicketById(id);
+	}
+
+	@GetMapping("/get/bymodule/{moduleName}")
+	public List<Issue> getAllIssuesByModule(@PathVariable String moduleName) {
+		Log.info("retriving all issues with module name {} ", moduleName);
+		return issueTicketService.getAllIssuesByModule(moduleName);
+	}
+
+	@GetMapping("/get/bystatus/{status}")
+	public List<Issue> getAllIssuesByStatus(@PathVariable String status) {
+		Log.info("retriving all issues with status  {} ", status);
+		return issueTicketService.getAllIssuesByStatus(status);
+	}
+
+	@GetMapping("/get/bypriority/{priority}")
+	public List<Issue> getAllIssuesByPriority(@PathVariable String priority) {
+		Log.info("retriving all issues with Priority  {} ", priority);
+		return issueTicketService.getAllIssuesByPriority(priority);
 	}
 
 	@PostMapping("/update")
@@ -42,12 +66,6 @@ public class IssueController {
 		Log.info("new update request for problem statement {} and status {} ", issue.getProblemStatement(),
 				issue.getStatus());
 		return issueTicketService.updateIssue(issue);
-	}
-
-	@GetMapping("/getallbymodule/{moduleName}")
-	public List<Issue> getAllIssuesByModule(@PathVariable String moduleName) {
-		Log.info("retriving all issues with module name {} ", moduleName);
-		return issueTicketService.getTicketsByModule(moduleName);
 	}
 
 }
