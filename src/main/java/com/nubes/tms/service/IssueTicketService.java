@@ -10,12 +10,14 @@ public interface IssueTicketService {
 
 	Issue getTicketById(String id);
 
-	List<Issue> getTicketsByModule(String moduleName);
-	
+	List<Issue> getAllIssuesByModule(String moduleName);
+
 	Issue updateIssue(Issue issue);
-	
-	
-	
-	
+
+	List<Issue> getAllIssues();
+
+	List<Issue> getAllIssuesByStatus(String status);
+
+	List<Issue> getAllIssuesByPriority(String priority);
 
 }
