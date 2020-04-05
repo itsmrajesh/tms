@@ -1,6 +1,7 @@
 package com.nubes.tms.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,20 +26,25 @@ public class IssueTicketServiceImpl implements IssueTicketService {
 
 	@Override
 	public Issue getTicketById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(id, "ID Can't be null");
+		Optional<Issue> issue = issueRepo.findById(id);
+		return issue.get();
 	}
 
 	@Override
 	public List<Issue> getTicketsByModule(String moduleName) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(moduleName, "Module Name can't be null");
+		return issueRepo.findAllByModule(moduleName);
 	}
 
 	@Override
 	public Issue updateIssue(Issue issue) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(issue, "Issue object can't null");
+		Assert.notNull(issue.getProblemStatement(), "Problem Statement can't be null");
+		Assert.notNull(issue.getModule(), "Module Can't be null");
+		Assert.notNull(issue.getId(), "ID can't be null for updating");
+		Assert.notNull(getTicketById(issue.getId()), "No Issue found with given Ticket ID");
+		return issueRepo.save(issue);
 	}
 
 }
