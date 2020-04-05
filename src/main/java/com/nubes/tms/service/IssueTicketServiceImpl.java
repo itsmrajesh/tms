@@ -57,4 +57,22 @@ public class IssueTicketServiceImpl implements IssueTicketService {
 		return issueRepo.save(issue);
 	}
 
+	@Override
+	public List<Issue> getAllIssues() {
+		log.info("geting all issues");
+		return issueRepo.findAll();
+	}
+
+	@Override
+	public List<Issue> getAllIssuesByStatus(String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Issue> getAllIssuesByPriority(String priority) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
