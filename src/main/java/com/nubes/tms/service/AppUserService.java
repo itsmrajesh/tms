@@ -10,5 +10,7 @@ public interface AppUserService {
     AppUser checkUserExists(String email);
     AppUser updateUser(AppUser appUser);
     boolean deleteUser(String email);
+    
+    
 
 }

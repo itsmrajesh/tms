@@ -24,14 +24,14 @@ public class AppUserServiceImpl implements AppUserService {
 		Assert.notNull(appUser.getUsername(), "Register User name can't be empty or null");
 		Assert.notNull(appUser.getEmail(), "Register email can't be empty or null");
 
-		AppUser registeredUser = appUserRepo.findByUsername(appUser.getUsername());
+		AppUser registredUser = appUserRepo.findByUsername(appUser.getUsername());
 
-		if (registeredUser != null) {
-			log.info("User exists with the given user name :{}", registeredUser.getUsername());
+		if (registredUser != null) {
+			log.info("User exists with the given user name :{}", registredUser.getUsername());
 			throw new UserExistsException("User already exists with user name");
 		}
 		appUser = appUserRepo.save(appUser);
-		log.info("User registered with id:{}", appUser.getId());
+		log.info("User registred with id:{}", appUser.getId());
 		return appUser;
 	}
 
@@ -47,12 +47,11 @@ public class AppUserServiceImpl implements AppUserService {
 	}
 
 	@Override
-	public 	AppUser checkUserExists(String email) {
-		Assert.notNull(email, "Email can't be empty or null");
+	public AppUser checkUserExists(String email) {
+		Assert.notNull(email, "Email can't be null or empty");
 		AppUser appUser = appUserRepo.findByEmail(email);
-		log.info("Searching all users with email {} ", email);
-		if (appUser == null) {
-			log.info("User is not found for the given email:{}", email);
+		if (appUser != null) {
+			log.info("User is found for the given email:{} and id:{}", email, appUser.getId());
 		}
 		return appUser;
 	}
@@ -62,21 +61,26 @@ public class AppUserServiceImpl implements AppUserService {
 		Assert.notNull(appUser, "Register user object can't null");
 		Assert.notNull(appUser.getUsername(), "Register User name can't be empty or null");
 		Assert.notNull(appUser.getEmail(), "Register email can't be empty or null");
-		Assert.notNull(appUser.getId(), "No User found with given ID");
-		log.info("updating user with username{} and Email{} ", appUser.getUsername(),appUser.getEmail());
-		return appUserRepo.save(appUser);
+		Assert.notNull(appUser.getId(), "User Id can't be null or empty");
+		AppUser updatedUser = appUserRepo.save(appUser);
+		if(updatedUser != null){
+			log.info("User with id:{} updated successfully",updatedUser.getId());
+		}
+		return updatedUser;
 	}
 
 	@Override
 	public boolean deleteUser(String email) {
-		Assert.notNull(email, "email can't be empty or null");
-		AppUser user = appUserRepo.findByEmail(email);
-		if(user != null) {
-			appUserRepo.delete(user);
-			log.info("User with email {} deleted successfully",email);
-			return true;
+		AppUser appUser = appUserRepo.findByEmail(email);
+		if (appUser == null) {
+			log.info("User is not found for the given email:{}", email);
+			return false;
 		}
-		return false;
+		appUser.setStatus(false);
+		appUserRepo.save(appUser);
+
+		log.info("User deleted successfully for email:{}", email);
+		return true;
 	}
 
 }
