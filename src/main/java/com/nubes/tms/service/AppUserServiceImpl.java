@@ -9,8 +9,6 @@ import com.nubes.tms.domain.AppUser;
 import com.nubes.tms.exceptions.UserExistsException;
 import com.nubes.tms.repo.AppUserRepo;
 
-import javax.validation.constraints.Email;
-
 @Service
 public class AppUserServiceImpl implements AppUserService {
 
@@ -28,7 +26,7 @@ public class AppUserServiceImpl implements AppUserService {
 
 		AppUser registeredUser = appUserRepo.findByUsername(appUser.getUsername());
 
-		if (registredUser != null) {
+		if (registeredUser != null) {
 			log.info("User exists with the given user name :{}", registeredUser.getUsername());
 			throw new UserExistsException("User already exists with user name");
 		}
@@ -72,9 +70,13 @@ public class AppUserServiceImpl implements AppUserService {
 	@Override
 	public boolean deleteUser(String email) {
 		Assert.notNull(email, "email can't be empty or null");
-		appUserRepo.deleteByEmail(email);
+		AppUser user = appUserRepo.findByEmail(email);
+		if(user != null) {
+			appUserRepo.delete(user);
+			log.info("User with email {} deleted successfully",email);
+			return true;
+		}
 		return false;
-		log.info("Module with email {} deleted successfully",email);
 	}
 
 }
