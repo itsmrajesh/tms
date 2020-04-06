@@ -24,14 +24,14 @@ public class AppUserServiceImpl implements AppUserService {
 		Assert.notNull(appUser.getUsername(), "Register User name can't be empty or null");
 		Assert.notNull(appUser.getEmail(), "Register email can't be empty or null");
 
-		AppUser registredUser = appUserRepo.findByUsername(appUser.getUsername());
+		AppUser registeredUser = appUserRepo.findByUsername(appUser.getUsername());
 
-		if (registredUser != null) {
-			log.info("User exists with the given user name :{}", registredUser.getUsername());
+		if (registeredUser != null) {
+			log.info("User exists with the given user name :{}", registeredUser.getUsername());
 			throw new UserExistsException("User already exists with user name");
 		}
 		appUser = appUserRepo.save(appUser);
-		log.info("User registred with id:{}", appUser.getId());
+		log.info("User registered with id:{}", appUser.getId());
 		return appUser;
 	}
 
@@ -44,6 +44,39 @@ public class AppUserServiceImpl implements AppUserService {
 		}
 		return appUser;
 
+	}
+
+	@Override
+	public 	AppUser checkUserExists(String email) {
+		Assert.notNull(email, "Email can't be empty or null");
+		AppUser appUser = appUserRepo.findByEmail(email);
+		log.info("Searching all users with email {} ", email);
+		if (appUser == null) {
+			log.info("User is not found for the given email:{}", email);
+		}
+		return appUser;
+	}
+
+	@Override
+	public AppUser updateUser(AppUser appUser) {
+		Assert.notNull(appUser, "Register user object can't null");
+		Assert.notNull(appUser.getUsername(), "Register User name can't be empty or null");
+		Assert.notNull(appUser.getEmail(), "Register email can't be empty or null");
+		Assert.notNull(appUser.getId(), "No User found with given ID");
+		log.info("updating user with username{} and Email{} ", appUser.getUsername(),appUser.getEmail());
+		return appUserRepo.save(appUser);
+	}
+
+	@Override
+	public boolean deleteUser(String email) {
+		Assert.notNull(email, "email can't be empty or null");
+		AppUser user = appUserRepo.findByEmail(email);
+		if(user != null) {
+			appUserRepo.delete(user);
+			log.info("User with email {} deleted successfully",email);
+			return true;
+		}
+		return false;
 	}
 
 }
