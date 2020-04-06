@@ -22,6 +22,6 @@ public interface IssueService {
 
 	Long deleteAllIssues();
 
-	boolean deleteIssue(String id);
+	boolean deleteIssueById(String id);
 
 }
