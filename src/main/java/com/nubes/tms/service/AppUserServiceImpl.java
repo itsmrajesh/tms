@@ -48,20 +48,39 @@ public class AppUserServiceImpl implements AppUserService {
 
 	@Override
 	public AppUser checkUserExists(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(email, "Email can't be null or empty");
+		AppUser appUser = appUserRepo.findByEmail(email);
+		if (appUser != null) {
+			log.info("User is found for the given email:{} and id:{}", email, appUser.getId());
+		}
+		return appUser;
 	}
 
 	@Override
 	public AppUser updateUser(AppUser appUser) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull(appUser, "Register user object can't null");
+		Assert.notNull(appUser.getUsername(), "Register User name can't be empty or null");
+		Assert.notNull(appUser.getEmail(), "Register email can't be empty or null");
+		Assert.notNull(appUser.getId(), "User Id can't be null or empty");
+		AppUser updatedUser = appUserRepo.save(appUser);
+		if(updatedUser != null){
+			log.info("User with id:{} updated successfully",updatedUser.getId());
+		}
+		return updatedUser;
 	}
 
 	@Override
 	public boolean deleteUser(String email) {
-		// TODO Auto-generated method stub
-		return false;
+		AppUser appUser = appUserRepo.findByEmail(email);
+		if (appUser == null) {
+			log.info("User is not found for the given email:{}", email);
+			return false;
+		}
+		appUser.setStatus(false);
+		appUserRepo.save(appUser);
+
+		log.info("User deleted successfully for email:{}", email);
+		return true;
 	}
 
 }
