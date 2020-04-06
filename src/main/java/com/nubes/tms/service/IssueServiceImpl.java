@@ -41,10 +41,11 @@ public class IssueServiceImpl implements IssueService {
 		Optional<Issue> issue = issueRepo.findById(id);
 		if (issue.isPresent()) {
 			log.info("Finding issue by ID {} ", id);
+			return issue.get();
 		} else {
 			log.info("Issue with id {} is not found ", id);
 		}
-		return issue.get();
+		return null;
 	}
 
 	@Override
@@ -91,6 +92,30 @@ public class IssueServiceImpl implements IssueService {
 		List<Issue> list = issueRepo.findAllByPriority(priority);
 		log.info("Total issues found for the priority {} is {}", priority, list.size());
 		return list;
+	}
+
+	@Override
+	public Integer deleteAllIssues() {
+		Integer size = getAllIssues().size();
+		if (size > 0) {
+			issueRepo.deleteAll();
+			log.info("Deleted {} issues from DB ", size);
+		}else {
+			log.info("No Issues in DB to delete");
+		}
+		return size;
+	}
+
+	@Override
+	public boolean deleteIssue(String id) {
+		Assert.notNull(id, "Issue ID can't be null");
+		if (issueRepo.existsById(id)) {
+			issueRepo.deleteById(id);
+			log.info("Issue deleted with {} ", id);
+			return true;
+		}
+		log.info("No issue found with ID {} ", id);
+		return false;
 	}
 
 }

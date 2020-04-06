@@ -20,4 +20,8 @@ public interface IssueService {
 
 	List<Issue> getIssuesByPriority(String priority);
 
+	Integer deleteAllIssues();
+
+	boolean deleteIssue(String id);
+
 }
