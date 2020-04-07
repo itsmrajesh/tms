@@ -2,6 +2,7 @@ package com.nubes.tms.domain;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -34,9 +35,10 @@ public class AppUser implements AuditorAware<String> {
 	private String username;
 	private String email;
 	private String orgName;
+	private Set<Role> roles;
 	@Builder.Default
 	private boolean status = true;
-	@JsonIgnore
+
 	private String password;
 
 
