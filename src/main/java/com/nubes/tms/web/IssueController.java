@@ -1,6 +1,11 @@
 package com.nubes.tms.web;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,11 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nubes.tms.domain.Issue;
 import com.nubes.tms.service.IssueService;
-
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/issue/")
@@ -67,5 +67,17 @@ public class IssueController {
 				issue.getStatus());
 		return issueTicketService.updateIssue(issue);
 	}
+
+	@DeleteMapping("/delete/{id}")
+	public boolean deleteIssueById(@PathVariable String id) {
+		return issueTicketService.deleteIssueById(id);
+	}
+
+	@DeleteMapping("/deleteall")
+	public Long deleteAllIssues() {
+		return issueTicketService.deleteAllIssues();
+	}
+	
+	
 
 }
