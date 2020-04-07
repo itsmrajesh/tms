@@ -95,8 +95,8 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public Integer deleteAllIssues() {
-		Integer size = getAllIssues().size();
+	public Long deleteAllIssues() {
+		Long size = issueRepo.count();
 		if (size > 0) {
 			issueRepo.deleteAll();
 			log.info("Deleted {} issues from DB ", size);
@@ -107,7 +107,7 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public boolean deleteIssue(String id) {
+	public boolean deleteIssueById(String id) {
 		Assert.notNull(id, "Issue ID can't be null");
 		if (issueRepo.existsById(id)) {
 			issueRepo.deleteById(id);

@@ -69,13 +69,15 @@ public class IssueController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public boolean deleteIssue(@PathVariable String id) {
-		return issueTicketService.deleteIssue(id);
+	public boolean deleteIssueById(@PathVariable String id) {
+		return issueTicketService.deleteIssueById(id);
 	}
 
 	@DeleteMapping("/deleteall")
-	public Integer deleteAllIssues() {
+	public Long deleteAllIssues() {
 		return issueTicketService.deleteAllIssues();
 	}
+	
+	
 
 }

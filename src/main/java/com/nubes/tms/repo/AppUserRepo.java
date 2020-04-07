@@ -6,7 +6,7 @@ import com.nubes.tms.domain.AppUser;
 
 public interface AppUserRepo extends MongoRepository<AppUser, String> {
 
-	AppUser findByUsername(String user);
+	AppUser findByUsername(String username);
 	AppUser findByEmail(String email);
 
 }
