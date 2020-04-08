@@ -11,14 +11,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Comments  {
+public class Comments {
 
 	private String userName;
 	private String description;
-
-	@CreatedDate
-	private LocalDateTime createdAt;
-
-	
+	private LocalDateTime createdAt = LocalDateTime.now();
 
 }
