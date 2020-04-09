@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nubes.tms.domain.Comments;
 import com.nubes.tms.domain.Issue;
+import com.nubes.tms.domain.Priority;
 import com.nubes.tms.service.IssueService;
 
 @RestController
@@ -77,7 +79,15 @@ public class IssueController {
 	public Long deleteAllIssues() {
 		return issueTicketService.deleteAllIssues();
 	}
-	
-	
+
+	@PutMapping("priority/{id}/{priority}")
+	public Issue updatePriority(@PathVariable String id, @PathVariable Priority priority) {
+		return issueTicketService.updateIssuePriority(id, priority);
+	}
+
+	@PutMapping("addComment/{id}/{comment}")
+	public Issue addComment(@PathVariable String id, @PathVariable Comments comment) {
+		return issueTicketService.addComment(id, comment);
+	}
 
 }

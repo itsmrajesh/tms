@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.nubes.tms.dao.IssueDao;
+import com.nubes.tms.domain.Comments;
 import com.nubes.tms.domain.Issue;
+import com.nubes.tms.domain.Priority;
 import com.nubes.tms.repo.IssueRepo;
 
 @Service
@@ -19,6 +22,9 @@ public class IssueServiceImpl implements IssueService {
 
 	@Autowired
 	private IssueRepo issueRepo;
+
+	@Autowired
+	private IssueDao issueDao;
 
 	@Override
 	public Issue createNewIssue(Issue issue) {
@@ -100,7 +106,7 @@ public class IssueServiceImpl implements IssueService {
 		if (size > 0) {
 			issueRepo.deleteAll();
 			log.info("Deleted {} issues from DB ", size);
-		}else {
+		} else {
 			log.info("No Issues in DB to delete");
 		}
 		return size;
@@ -116,6 +122,32 @@ public class IssueServiceImpl implements IssueService {
 		}
 		log.info("No issue found with ID {} ", id);
 		return false;
+	}
+
+	@Override
+	public Issue updateIssuePriority(String id, Priority priority) {
+		Assert.notNull(id, "Issue ID cant be null");
+		Assert.notNull(priority, "Priority cant be null");
+		Issue issue = getIssueById(id);
+		if (issue != null) {
+			issue = issueDao.updateIssuePriority(id, priority);
+			log.info("priority updated for {} ",id);
+		} else {
+			log.info("No issue found for updating with ID {} ", id);
+		}
+		return issue;
+	}
+
+	@Override
+	public Issue addComment(String id, Comments comment) {
+		Issue issue = getIssueById(id);
+		if (issue != null) {
+			issue = issueDao.addComment(id, comment);
+			log.info("comment add by {} for issue with {} ", comment.getUserName(), id);
+		} else {
+			log.info("No issue found for adding comment with ID {} ", id);
+		}
+		return issue;
 	}
 
 }

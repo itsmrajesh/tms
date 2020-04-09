@@ -2,7 +2,9 @@ package com.nubes.tms.service;
 
 import java.util.List;
 
+import com.nubes.tms.domain.Comments;
 import com.nubes.tms.domain.Issue;
+import com.nubes.tms.domain.Priority;
 
 public interface IssueService {
 
@@ -23,5 +25,9 @@ public interface IssueService {
 	Long deleteAllIssues();
 
 	boolean deleteIssueById(String id);
+	
+	Issue updateIssuePriority(String id, Priority priority);
+
+	Issue addComment(String id, Comments comment);
 
 }
