@@ -85,8 +85,8 @@ public class IssueController {
 		return issueTicketService.updateIssuePriority(id, priority);
 	}
 
-	@PutMapping("addComment/{id}/{comment}")
-	public Issue addComment(@PathVariable String id, @PathVariable Comments comment) {
+	@PutMapping("addComment/{id}")
+	public Issue addComment(@PathVariable String id, @RequestBody Comments comment) {
 		return issueTicketService.addComment(id, comment);
 	}
 
