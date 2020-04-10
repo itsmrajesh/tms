@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nubes.tms.auth.config.ContextUserUtil;
 import com.nubes.tms.domain.Comments;
 import com.nubes.tms.domain.Issue;
 import com.nubes.tms.domain.Priority;

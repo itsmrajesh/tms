@@ -10,7 +10,6 @@ import lombok.ToString;
 public class ModuleCountDTO {
 	
 	private String module;
-	
 	private int count;
 
 }

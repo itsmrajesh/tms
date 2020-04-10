@@ -1,7 +1,6 @@
 package com.nubes.tms.domain;
 
 import java.time.Instant;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.annotation.CreatedBy;
@@ -9,7 +8,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.domain.AuditorAware;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +22,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class AppUser implements AuditorAware<String> {
+public class AppUser{
 
 	@Id
 	private String id;
@@ -52,9 +50,5 @@ public class AppUser implements AuditorAware<String> {
 	@LastModifiedDate
 	private Instant lastModifiedDate;
 
-	@Override
-	public Optional<String> getCurrentAuditor() {
-		return Optional.of("Lakshman");
-	}
-
+	
 }

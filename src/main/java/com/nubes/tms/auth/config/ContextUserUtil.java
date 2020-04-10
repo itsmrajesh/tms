@@ -11,4 +11,6 @@ public final class ContextUserUtil {
 			String uname = SecurityContextHolder.getContext().getAuthentication().getName();
 			return uname;
 		}
+		//TODO 
+		// Get organization from the Security context
 }

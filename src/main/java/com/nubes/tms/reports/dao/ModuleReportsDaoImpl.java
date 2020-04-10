@@ -26,7 +26,8 @@ import com.nubes.tms.reports.dto.ModuleStatusDTO;
 public class ModuleReportsDaoImpl implements ModuleReportsDao {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ModuleReportsDaoImpl.class);
-	private MongoOperations mongoOperations;
+	
+	private final MongoOperations mongoOperations;
 	
 	@Autowired
 	public ModuleReportsDaoImpl(MongoOperations mongoOperations) {
