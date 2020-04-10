@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nubes.tms.domain.Comments;
 import com.nubes.tms.domain.Issue;
 import com.nubes.tms.domain.Priority;
+import com.nubes.tms.domain.Status;
 import com.nubes.tms.service.IssueService;
 
 @RestController
@@ -30,7 +31,7 @@ public class IssueController {
 
 	@PostMapping("/new")
 	public Issue newIssue(@RequestBody Issue issue) {
-		Log.info("New Issue for module {} ", issue.getModule());
+		//Log.info("New Issue for module {} ", issue.getModule());
 		return issueTicketService.createNewIssue(issue);
 	}
 
@@ -41,25 +42,25 @@ public class IssueController {
 
 	@GetMapping("{id}")
 	public Issue getIssue(@PathVariable String id) {
-		Log.info("Searching for issue with id {} ", id);
+		//Log.info("Searching for issue with id {} ", id);
 		return issueTicketService.getIssueById(id);
 	}
 
 	@GetMapping("module/{moduleName}")
 	public List<Issue> getAllIssuesByModule(@PathVariable String moduleName) {
-		Log.info("retriving all issues with module name {} ", moduleName);
+		//Log.info("retriving all issues with module name {} ", moduleName);
 		return issueTicketService.getIssuesByModule(moduleName);
 	}
 
 	@GetMapping("status/{status}")
 	public List<Issue> getAllIssuesByStatus(@PathVariable String status) {
-		Log.info("retriving all issues with status  {} ", status);
+		//Log.info("retriving all issues with status  {} ", status);
 		return issueTicketService.getIssuesByStatus(status);
 	}
 
 	@GetMapping("priority/{priority}")
 	public List<Issue> getAllIssuesByPriority(@PathVariable String priority) {
-		Log.info("retriving all issues with Priority  {} ", priority);
+		//Log.info("retriving all issues with Priority  {} ", priority);
 		return issueTicketService.getIssuesByPriority(priority);
 	}
 
@@ -85,9 +86,14 @@ public class IssueController {
 		return issueTicketService.updateIssuePriority(id, priority);
 	}
 
-	@PutMapping("addComment/{id}")
+	@PutMapping("addcomment/{id}")
 	public Issue addComment(@PathVariable String id, @RequestBody Comments comment) {
 		return issueTicketService.addComment(id, comment);
+	}
+	
+	@PutMapping("status/{id}/{status}")
+	public Issue updateIssue(@PathVariable String id,@PathVariable Status status) {
+		return issueTicketService.updateIssueStatus(id, status);
 	}
 
 }

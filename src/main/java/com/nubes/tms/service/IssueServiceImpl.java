@@ -13,6 +13,7 @@ import com.nubes.tms.dao.IssueDao;
 import com.nubes.tms.domain.Comments;
 import com.nubes.tms.domain.Issue;
 import com.nubes.tms.domain.Priority;
+import com.nubes.tms.domain.Status;
 import com.nubes.tms.repo.IssueRepo;
 
 @Service
@@ -33,7 +34,7 @@ public class IssueServiceImpl implements IssueService {
 		Assert.notNull(issue.getModule(), "Module Can't be null");
 		Issue saveIssue = issueRepo.save(issue);
 		if (saveIssue != null) {
-			log.info("new issue added with id {} for module {} ", saveIssue.getId(), saveIssue.getModule());
+			log.info("New issue added with id {} for module {} ", saveIssue.getId(), saveIssue.getModule());
 		} else {
 			log.error("Issue was unable add");
 		}
@@ -42,7 +43,6 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public Issue getIssueById(String id) {
-
 		Assert.notNull(id, "ID Can't be null");
 		Optional<Issue> issue = issueRepo.findById(id);
 		if (issue.isPresent()) {
@@ -70,7 +70,7 @@ public class IssueServiceImpl implements IssueService {
 		Assert.notNull(issue.getModule(), "Module Can't be null");
 		Assert.notNull(issue.getId(), "ID can't be null for updating");
 		Assert.notNull(getIssueById(issue.getId()), "No Issue found with given Ticket ID");
-		log.info("updating issue with problem statement {} and status {} ", issue.getProblemStatement(),
+		log.info("Updating issue with problem statement {} and status {} ", issue.getProblemStatement(),
 				issue.getStatus());
 		return issueRepo.save(issue);
 	}
@@ -107,7 +107,7 @@ public class IssueServiceImpl implements IssueService {
 			issueRepo.deleteAll();
 			log.info("Deleted {} issues from DB ", size);
 		} else {
-			log.info("No Issues in DB to delete");
+			log.info("No Issues found in DB to delete");
 		}
 		return size;
 	}
@@ -131,7 +131,7 @@ public class IssueServiceImpl implements IssueService {
 		Issue issue = getIssueById(id);
 		if (issue != null) {
 			issue = issueDao.updateIssuePriority(id, priority);
-			log.info("priority updated for {} ",id);
+			log.info("Priority updated for {} ", id);
 		} else {
 			log.info("No issue found for updating with ID {} ", id);
 		}
@@ -140,12 +140,28 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public Issue addComment(String id, Comments comment) {
+		Assert.notNull(id, "ID Cant be null");
+		Assert.notNull(comment, "Comment cant be null");
 		Issue issue = getIssueById(id);
 		if (issue != null) {
 			issue = issueDao.addComment(id, comment);
 			log.info("comment add by {} for issue with {} ", comment.getUserName(), id);
 		} else {
 			log.info("No issue found for adding comment with ID {} ", id);
+		}
+		return issue;
+	}
+
+	@Override
+	public Issue updateIssueStatus(String id, Status status) {
+		Assert.notNull(id, "ID Cant be null");
+		Assert.notNull(status, "Status cant be null");
+		Issue issue = getIssueById(id);
+		if (issue != null) {
+			issue = issueDao.updateIssueStatus(id, status);
+			log.info("Issue updated for ID {} with status {} ", id, status);
+		} else {
+			log.info("No issue found for updating status {} ", id);
 		}
 		return issue;
 	}

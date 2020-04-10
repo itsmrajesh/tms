@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.nubes.tms.domain.Comments;
 import com.nubes.tms.domain.Issue;
 import com.nubes.tms.domain.Priority;
+import com.nubes.tms.domain.Status;
 
 @Repository
 public class IssueDaoImpl implements IssueDao {
@@ -33,7 +34,18 @@ public class IssueDaoImpl implements IssueDao {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
 		Update update = new Update();
-		update.push("comment", comment);
+		update.push("comments", comment);
+		mongoOperations.upsert(query, update, Issue.class);
+		Issue issue = mongoOperations.findOne(query, Issue.class);
+		return issue;
+	}
+
+	@Override
+	public Issue updateIssueStatus(String id, Status status) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("_id").is(id));
+		Update update = new Update();
+		update.set("status", status);
 		mongoOperations.upsert(query, update, Issue.class);
 		Issue issue = mongoOperations.findOne(query, Issue.class);
 		return issue;

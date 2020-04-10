@@ -11,6 +11,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.AuditorAware;
 
+import com.nubes.tms.auth.config.ContextUsesrUtil;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,8 +28,8 @@ public class Issue implements AuditorAware<String> {
 	private String id;
 	private String problemStatement;
 	private String module;
-	private Priority priority; // Enum
-	private Status status; // Enum
+	private Priority priority;
+	private Status status;
 	private String description;
 	private List<Comments> comments;
 
@@ -45,7 +47,8 @@ public class Issue implements AuditorAware<String> {
 
 	@Override
 	public Optional<String> getCurrentAuditor() {
-		return Optional.of("User Who raised issue/ticket");
+		return Optional.of(ContextUsesrUtil.userName());
+
 	}
 
 }
