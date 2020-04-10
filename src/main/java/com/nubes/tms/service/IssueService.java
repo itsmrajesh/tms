@@ -35,5 +35,5 @@ public interface IssueService {
 	
 	List<Issue> getAllIssuesByOrg(String orgName);
 	
-	List<Issue> getAllIssuesByEmail(String email);
+	List<Issue> getAllIssuesByUserName(String userName);
 }

@@ -175,10 +175,10 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public List<Issue> getAllIssuesByEmail(String email) {
-		Assert.notNull(email, "Email cant be null");
-		List<Issue> list = issueRepo.findAllByCreatedBy(email);
-		log.info("Total issues found with email {} is {} ", email, list.size());
+	public List<Issue> getAllIssuesByUserName(String userName) {
+		Assert.notNull(userName, "UserName cant be null");
+		List<Issue> list = issueRepo.findAllByCreatedBy(userName);
+		log.info("Total issues found with email {} is {} ", userName, list.size());
 		return list;
 	}
 
