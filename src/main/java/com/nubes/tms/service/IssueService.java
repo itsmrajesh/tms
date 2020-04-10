@@ -32,5 +32,8 @@ public interface IssueService {
 	Issue addComment(String id, Comments comment);
 
 	Issue updateIssueStatus(String id, Status status);
-
+	
+	List<Issue> getAllIssuesByOrg(String orgName);
+	
+	List<Issue> getAllIssuesByEmail(String email);
 }
