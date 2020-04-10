@@ -2,9 +2,9 @@ package com.nubes.tms.auth.config;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public final class ContextUsesrUtil {
+public final class ContextUserUtil {
 	
-		private ContextUsesrUtil() {
+		private ContextUserUtil() {
 			
 		}
 		public static String userName() {

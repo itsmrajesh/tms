@@ -12,7 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.nubes.tms.auth.config.ContextUsesrUtil;
+import com.nubes.tms.auth.config.ContextUserUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

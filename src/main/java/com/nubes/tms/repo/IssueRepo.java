@@ -12,4 +12,8 @@ public interface IssueRepo extends MongoRepository<Issue, String> {
 	List<Issue> findAllByStatus(String status);
 
 	List<Issue> findAllByPriority(String priority);
+	
+	List<Issue> findAllByOrgName(String orgName);
+	
+	List<Issue> findAllByCreatedBy(String email);
 }

@@ -145,7 +145,7 @@ public class IssueServiceImpl implements IssueService {
 		Issue issue = getIssueById(id);
 		if (issue != null) {
 			issue = issueDao.addComment(id, comment);
-			log.info("comment add by {} for issue with {} ", comment.getUserName(), id);
+			log.info("comment add by {} for issue with ID {} ", comment.getUserName(), id);
 		} else {
 			log.info("No issue found for adding comment with ID {} ", id);
 		}
@@ -164,6 +164,22 @@ public class IssueServiceImpl implements IssueService {
 			log.info("No issue found for updating status {} ", id);
 		}
 		return issue;
+	}
+
+	@Override
+	public List<Issue> getAllIssuesByOrg(String orgName) {
+		Assert.notNull(orgName, "Organization name cant be null");
+		List<Issue> list = issueRepo.findAllByOrgName(orgName);
+		log.info("Total issues found is {} for Organization: {} ", list.size(), orgName);
+		return list;
+	}
+
+	@Override
+	public List<Issue> getAllIssuesByEmail(String email) {
+		Assert.notNull(email, "Email cant be null");
+		List<Issue> list = issueRepo.findAllByCreatedBy(email);
+		log.info("Total issues found with email {} is {} ", email, list.size());
+		return list;
 	}
 
 }
