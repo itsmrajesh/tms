@@ -10,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.nubes.tms.auth.config.ContextUsesrUtil;
 
@@ -22,15 +23,17 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Issue implements AuditorAware<String> {
+@Document
+public class Issue {
 
 	@Id
 	private String id;
 	private String problemStatement;
 	private String module;
 	private Priority priority;
-	private Status status;
+	private Status status = Status.OPEN;
 	private String description;
+	private String orgName;
 	private List<Comments> comments;
 
 	@CreatedBy
@@ -45,10 +48,6 @@ public class Issue implements AuditorAware<String> {
 	@LastModifiedDate
 	private LocalDateTime updateAt;
 
-	@Override
-	public Optional<String> getCurrentAuditor() {
-		return Optional.of(ContextUsesrUtil.userName());
-
-	}
+	
 
 }
