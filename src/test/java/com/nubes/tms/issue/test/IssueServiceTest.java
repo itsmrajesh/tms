@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.nubes.tms.domain.Issue;
+import com.nubes.tms.repo.IssueRepo;
 import com.nubes.tms.service.IssueService;
 
 @SpringBootTest
@@ -20,26 +21,24 @@ class IssueServiceTest {
 	private List<Issue> list = new ArrayList<>();
 
 	@Autowired
-	private IssueService issueService;
+	private IssueRepo issueRepo;
+
 	@Autowired
 	private SeedData seedData;
 
 	@BeforeEach
 	public void init() {
 		list = seedData.getSeedData();
-		for (Issue issue : list) {
-			issueService.createNewIssue(issue);
-		}
+		issueRepo.saveAll(list);
 	}
 
 	@AfterEach
 	public void destroy() {
-		issueService.deleteAllIssues();
 	}
 
 	@Test
 	public void testIssues() {
-		List<Issue> lst = issueService.getAllIssues();
+		List<Issue> lst = issueRepo.findAll();
 		System.out.println("Issues size : " + lst.size());
 		assertEquals(1, lst.size());
 	}

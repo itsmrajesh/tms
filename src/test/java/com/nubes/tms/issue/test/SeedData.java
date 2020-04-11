@@ -24,7 +24,7 @@ public class SeedData {
 		commentsList.add(comment);
 
 		Issue i1 = Issue.builder().problemStatement("VPN is not working").module("IT").priority(Priority.MEDIUM)
-				.description("VPN is not working").orgName("I-EXCEED").comments(commentsList).build();
+				.description("VPN is not working").orgName("I-EXCEED").comments(commentsList).createdBy("Rajesh").build();
 
 		list.add(i1);
 		return list;
