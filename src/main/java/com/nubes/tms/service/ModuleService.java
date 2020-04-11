@@ -11,8 +11,8 @@ public interface ModuleService {
 	List<Module> viewModules();
 	Module getModuleByName(String name);
 	Module getModuleByUsername(String user);
-	Module updateModule(Module module,String name);
-	void deleteModule(String name);
+	Module updateModule(Module module,String name) throws ModuleExistsException;
+	boolean deleteModule(String name);
 	
 	
 

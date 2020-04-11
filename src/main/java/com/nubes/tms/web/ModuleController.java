@@ -60,7 +60,7 @@ public class ModuleController {
 	
 	
 	@PutMapping("/updatemodule/{name}")
-    public Module updateModule(@RequestBody Module module, @PathVariable String name) {
+    public Module updateModule(@RequestBody Module module, @PathVariable String name) throws ModuleExistsException {
         module = this.moduleService.updateModule(module,name);
         log.info("Module updated with name :{} ",module.getName());
         return module;
@@ -68,9 +68,10 @@ public class ModuleController {
 
 
 	@DeleteMapping("/deletemodule/{name}")
-    public void deleteModule(@PathVariable String name) {
-		this.moduleService.deleteModule(name);
+    public boolean deleteModule(@PathVariable String name) {
+		boolean status = this.moduleService.deleteModule(name);
 	   log.info("Module with name: {} deleted successfully",name);
+	return status;
     }
 
 }
