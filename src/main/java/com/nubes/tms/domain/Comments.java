@@ -5,8 +5,10 @@ import java.time.LocalDateTime;
 import com.nubes.tms.auth.config.ContextUserUtil;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Comments {
 
 	private String userName = ContextUserUtil.userName();
