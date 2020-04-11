@@ -83,7 +83,7 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public List<Issue> getIssuesByStatus(String status) {
+	public List<Issue> getIssuesByStatus(Status status) {
 		Assert.notNull(status, "status can't be null");
 		log.info("Searching all issues with status {} ", status);
 		List<Issue> list = issueRepo.findAllByStatus(status);
@@ -92,7 +92,7 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public List<Issue> getIssuesByPriority(String priority) {
+	public List<Issue> getIssuesByPriority(Priority priority) {
 		Assert.notNull(priority, "priority can't be null");
 		log.info("Searching all issues with priority {} ", priority);
 		List<Issue> list = issueRepo.findAllByPriority(priority);

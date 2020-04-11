@@ -46,12 +46,12 @@ public class IssueController {
 	}
 
 	@GetMapping("status/{status}")
-	public List<Issue> getAllIssuesByStatus(@PathVariable String status) {
+	public List<Issue> getAllIssuesByStatus(@PathVariable Status status) {
 		return issueTicketService.getIssuesByStatus(status);
 	}
 
 	@GetMapping("priority/{priority}")
-	public List<Issue> getAllIssuesByPriority(@PathVariable String priority) {
+	public List<Issue> getAllIssuesByPriority(@PathVariable Priority priority) {
 		return issueTicketService.getIssuesByPriority(priority);
 	}
 

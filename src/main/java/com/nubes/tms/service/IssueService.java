@@ -19,9 +19,9 @@ public interface IssueService {
 
 	List<Issue> getAllIssues();
 
-	List<Issue> getIssuesByStatus(String status);
+	List<Issue> getIssuesByStatus(Status status);
 
-	List<Issue> getIssuesByPriority(String priority);
+	List<Issue> getIssuesByPriority(Priority priority);
 
 	Long deleteAllIssues();
 
