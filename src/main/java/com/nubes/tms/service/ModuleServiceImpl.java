@@ -58,7 +58,7 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	@Override
-	public Module updateModule(Module module,String name) {
+	public Module updateModule(Module module,String name) throws ModuleExistsException {
 		Assert.notNull(module, "Module cannot be null");
 		Assert.notNull(module.getName(), "Module name cannot be null");
 		
@@ -76,11 +76,15 @@ public class ModuleServiceImpl implements ModuleService {
 
 	
 	@Override
-	public void deleteModule(String name) {
+	public boolean deleteModule(String name) {
 		Assert.notNull(name, "Name of the module cannot be null");
-		moduleRepo.deleteByName(name);
+		Module module = moduleRepo.deleteByName(name);
+		if (module == null) {
+			log.info("User is not found for the given name:{}", name);
+			return false;
+		}
 			log.info("Module with name: {} deleted successfully",name);
-		
+		return true;
 	}
 
 	@Override

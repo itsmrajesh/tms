@@ -21,13 +21,19 @@ public class ModuleReportsServiceImpl implements ModuleReportsService {
 	@Override
 	public List<ModuleCountDTO> getModuleIssuesCount() {
 		 List<ModuleCountDTO> modCount = moduleReportsDao.getModuleIssuesCount();
+		 if(modCount.isEmpty()) {
+			 System.out.println("There are no modules with issues..!!");
+		 }
 		 log.info("Total modules with issues are:{}", modCount.size());
-		return modCount;
+		 return modCount;
 	}
 
 	@Override
 	public List<ModuleCountDTO> getModuleIssuesCountByOrg(String orgName) {
 		 List<ModuleCountDTO> modCount = moduleReportsDao.getModuleIssuesCountByOrg(orgName);
+		 if(modCount.isEmpty()) {
+			 System.out.println("There are no modules with issues in this organization..!!");
+		 }
 		 log.info("Total modules of organization with issues are:{}", modCount.size());
 		return modCount;
 	}
@@ -35,6 +41,9 @@ public class ModuleReportsServiceImpl implements ModuleReportsService {
 	@Override
 	public List<ModulePriorityDTO> getModulePriorityCount(String mName) {
 		List<ModulePriorityDTO> modPriorityCount = moduleReportsDao.getModulePriorityCount(mName);
+		if(modPriorityCount.isEmpty()) {
+			 System.out.println("The module has no issue raised yet..!!");
+		 }
 		log.info("Module is having total of {} priorities",modPriorityCount.size());
 		return modPriorityCount;
 	}
@@ -42,6 +51,9 @@ public class ModuleReportsServiceImpl implements ModuleReportsService {
 	@Override
 	public List<ModuleStatusDTO> getModuleStatusCount(String mName) {
 		List<ModuleStatusDTO> modStatusCount = moduleReportsDao.getModuleStatusCount(mName);
+		if(modStatusCount.isEmpty()) {
+			 System.out.println("The module has no issue raised yet..!!");
+		 }
 		log.info("Module is having total of {} status", modStatusCount.size());
 		return modStatusCount;
 	}

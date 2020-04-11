@@ -9,6 +9,6 @@ public interface ModuleRepo extends MongoRepository<Module, String> {
 	
 	Module findByName(String name);
 	Module findByUserName(String user);
-	void deleteByName(String name);
+	Module deleteByName(String name);
 
 }
