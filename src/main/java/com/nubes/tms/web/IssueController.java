@@ -41,17 +41,17 @@ public class IssueController {
 	}
 
 	@GetMapping("module/{moduleName}")
-	public List<Issue> getAllIssuesByModule(@PathVariable String moduleName) {
+	public List<Issue> getIssuesByModule(@PathVariable String moduleName) {
 		return issueTicketService.getIssuesByModule(moduleName);
 	}
 
 	@GetMapping("status/{status}")
-	public List<Issue> getAllIssuesByStatus(@PathVariable Status status) {
+	public List<Issue> getIssuesByStatus(@PathVariable Status status) {
 		return issueTicketService.getIssuesByStatus(status);
 	}
 
 	@GetMapping("priority/{priority}")
-	public List<Issue> getAllIssuesByPriority(@PathVariable Priority priority) {
+	public List<Issue> getIssuesByPriority(@PathVariable Priority priority) {
 		return issueTicketService.getIssuesByPriority(priority);
 	}
 
@@ -81,7 +81,7 @@ public class IssueController {
 	}
 
 	@PutMapping("status/{id}/{status}")
-	public Issue updateIssue(@PathVariable String id, @PathVariable Status status) {
+	public Issue updateStatus(@PathVariable String id, @PathVariable Status status) {
 		return issueTicketService.updateIssueStatus(id, status);
 	}
 
