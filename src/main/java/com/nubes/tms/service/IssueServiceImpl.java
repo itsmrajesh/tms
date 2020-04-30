@@ -14,6 +14,7 @@ import com.nubes.tms.domain.Comments;
 import com.nubes.tms.domain.Issue;
 import com.nubes.tms.domain.Priority;
 import com.nubes.tms.domain.Status;
+import com.nubes.tms.exceptions.IssueNotFoundException;
 import com.nubes.tms.repo.IssueRepo;
 
 @Service
@@ -42,16 +43,16 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public Issue getIssueById(String id) {
+	public Issue getIssueById(String id) throws IssueNotFoundException {
 		Assert.notNull(id, "ID Can't be null");
 		Optional<Issue> issue = issueRepo.findById(id);
 		if (issue.isPresent()) {
-			log.info("Finding issue by ID {} ", id);
+			log.info("Found issue by ID {} ", id);
 			return issue.get();
 		} else {
 			log.info("Issue with id {} is not found ", id);
+			throw new IssueNotFoundException(String.format("Issue with id %s is not found", id));
 		}
-		return null;
 	}
 
 	@Override
@@ -64,7 +65,7 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public Issue updateIssue(Issue issue) {
+	public Issue updateIssue(Issue issue) throws IssueNotFoundException {
 		Assert.notNull(issue, "Issue object can't null");
 		Assert.notNull(issue.getProblemStatement(), "Problem Statement can't be null");
 		Assert.notNull(issue.getModule(), "Module Can't be null");
@@ -125,7 +126,7 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public Issue updateIssuePriority(String id, Priority priority) {
+	public Issue updateIssuePriority(String id, Priority priority) throws IssueNotFoundException {
 		Assert.notNull(id, "Issue ID cant be null");
 		Assert.notNull(priority, "Priority cant be null");
 		Issue issue = getIssueById(id);
@@ -139,7 +140,7 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public Issue addComment(String id, Comments comment) {
+	public Issue addComment(String id, Comments comment) throws IssueNotFoundException {
 		Assert.notNull(id, "ID Cant be null");
 		Assert.notNull(comment, "Comment cant be null");
 		Issue issue = getIssueById(id);
@@ -153,7 +154,7 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public Issue updateIssueStatus(String id, Status status) {
+	public Issue updateIssueStatus(String id, Status status) throws IssueNotFoundException {
 		Assert.notNull(id, "ID Cant be null");
 		Assert.notNull(status, "Status cant be null");
 		Issue issue = getIssueById(id);

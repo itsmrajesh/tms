@@ -16,6 +16,7 @@ import com.nubes.tms.domain.Comments;
 import com.nubes.tms.domain.Issue;
 import com.nubes.tms.domain.Priority;
 import com.nubes.tms.domain.Status;
+import com.nubes.tms.exceptions.IssueNotFoundException;
 import com.nubes.tms.service.IssueService;
 
 @RestController
@@ -36,7 +37,7 @@ public class IssueController {
 	}
 
 	@GetMapping("{id}")
-	public Issue getIssue(@PathVariable String id) {
+	public Issue getIssue(@PathVariable String id) throws IssueNotFoundException {
 		return issueTicketService.getIssueById(id);
 	}
 
@@ -56,7 +57,7 @@ public class IssueController {
 	}
 
 	@PutMapping("/update")
-	public Issue updateIssue(@RequestBody Issue issue) {
+	public Issue updateIssue(@RequestBody Issue issue) throws IssueNotFoundException {
 		return issueTicketService.updateIssue(issue);
 	}
 
@@ -71,17 +72,17 @@ public class IssueController {
 	}
 
 	@PutMapping("priority/{id}/{priority}")
-	public Issue updatePriority(@PathVariable String id, @PathVariable Priority priority) {
+	public Issue updatePriority(@PathVariable String id, @PathVariable Priority priority) throws IssueNotFoundException {
 		return issueTicketService.updateIssuePriority(id, priority);
 	}
 
 	@PutMapping("addcomment/{id}")
-	public Issue addComment(@PathVariable String id, @RequestBody Comments comment) {
+	public Issue addComment(@PathVariable String id, @RequestBody Comments comment) throws IssueNotFoundException {
 		return issueTicketService.addComment(id, comment);
 	}
 
 	@PutMapping("status/{id}/{status}")
-	public Issue updateStatus(@PathVariable String id, @PathVariable Status status) {
+	public Issue updateStatus(@PathVariable String id, @PathVariable Status status) throws IssueNotFoundException {
 		return issueTicketService.updateIssueStatus(id, status);
 	}
 
